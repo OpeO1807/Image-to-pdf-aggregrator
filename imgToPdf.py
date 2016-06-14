@@ -38,7 +38,6 @@ def main():
         watermark = PdfFileReader(open(watermark_str, "rb"))
 
         #Get our files ready
-        
         pdf1File = open('sample.pdf', 'rb')
         page = PdfFileReader(pdf1File).getPage(0)
         page.mergePage(watermark.getPage(0))
@@ -47,14 +46,16 @@ def main():
         #Save the result
 
         output.addPage(page)
+    
+    #write the output to the pdf file    
     output.write(file("output.pdf","wb"))
 
 
-#Defining functions, preliminary
+#Create a function to search the current user directory for images to aggregate.
 def image_search():
-    found_images = []
-    for doc in os.listdir(os.curdir):
-        image_ext = ['.jpg', '.png', '.PNG', '.jpeg', '.JPG']
+    found_images = []                   #initialize a list to store the file names of images found.
+    for doc in os.listdir(os.curdir):         #get all the files in current directory. the path specified as argument is the current directory
+        image_ext = ['.jpg', '.png', '.PNG', '.jpeg', '.JPG']             #check for files that end with these
         for ext in image_ext:
             if doc.endswith(ext):
                 found_images.append(doc)
